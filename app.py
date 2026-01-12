@@ -35,6 +35,7 @@ def predict_heart():
 
     if request.method == "POST":
         try:
+            patient_name = request.form.get("patient_name", "Patient")
             values = []
             for name in feature_names:
                 v = request.form.get(name)
@@ -76,6 +77,7 @@ def predict_heart():
 
             return render_template(
                 "result.html",
+                name=patient_name,
                 disease_name="Heart Disease",
                 prediction=pred,
                 probability=proba,

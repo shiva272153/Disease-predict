@@ -6,12 +6,17 @@
       <div class="card-body p-5">
         <h2 class="card-title mb-1">New Heart Disease Prediction</h2>
         <p class="text-muted mb-4">Enter patient data below to generate a risk assessment.</p>
+        <p class="text-muted mb-4">All fields are required. Make sure to fill them correctly.</p>
 
         <form method="post">
 
           <!-- Patient Demographics -->
           <h5 class="section-title">Patient Demographics</h5>
           <div class="row g-3">
+            <div class="col-12">
+              <label class="form-label">Patient Name</label>
+              <input type="text" class="form-control" name="patient_name" placeholder="Enter patient name" required>
+            </div>
             <div class="col-md-6">
               <label class="form-label">Age</label>
               <input type="number" step="1" min="1" class="form-control" name="age" placeholder="e.g. 45" required>
