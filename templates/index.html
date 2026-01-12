@@ -1,18 +1,60 @@
 {% extends "base.html" %}
+{% block body_class %}medical-bg{% endblock %}
 {% block content %}
-<div class="row justify-content-center">
+<div class="row justify-content-center mb-5">
   <div class="col-lg-12">
-    <div class="hero-section text-center p-5">
+    <div class="hero-section text-center p-4 mb-0">
       <div class="hero-content">
         <h1 class="display-4 fw-bold text-primary mb-3">MediPredict AI</h1>
-        <p class="lead text-dark mb-4 mx-auto" style="max-width: 600px;">
+        <p class="lead text-dark mx-auto" style="max-width: 600px;">
           Advanced artificial intelligence for early disease detection.
           <br>
           <span class="text-muted fs-6">Powered by Logistic Regression Analysis</span>
         </p>
-        <div class="d-grid gap-3 d-sm-flex justify-content-sm-center">
-          <a href="{{ url_for('predict_heart') }}" class="btn btn-primary btn-lg px-5 shadow-sm">Start Heart Risk
-            Assessment &raquo;</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row g-4 justify-content-center">
+  <!-- Heart Card -->
+  <div class="col-md-5">
+    <div class="card h-100 shadow-sm border-0 transition-hover card-heart-bg">
+      <div class="card-body text-center p-5">
+        <div class="mb-4 text-danger">
+          <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" fill="currentColor"
+            class="bi bi-heart-pulse-fill" viewBox="0 0 16 16">
+            <path fill-rule="evenodd"
+              d="M1.475 9C2.702 10.84 4.779 12.871 8 15c3.221-2.129 5.298-4.16 6.525-6H1.475ZM8 1a2.5 2.5 0 0 0-2.5 2.5c0 .088.006.175.019.261C3.395 3.522 2 5.093 2 7h12c0-1.907-1.395-3.478-3.519-3.239A2.5 2.5 0 0 0 8 1Zm-1.875 3a.5.5 0 1 1 1 0 .5.5 0 0 1-1 0Zm3 0a.5.5 0 1 1 1 0 .5.5 0 0 1-1 0Z" />
+          </svg>
+        </div>
+        <h3 class="card-title fw-bold">Heart Disease</h3>
+        <p class="card-text text-muted mb-4">Evaluate cardiovascular health risk using standard clinical metrics like
+          blood pressure and cholesterol.</p>
+        <div class="d-grid">
+          <a href="{{ url_for('predict_heart') }}" class="btn btn-primary btn-lg">Check Heart Health &raquo;</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Diabetes Card -->
+  <div class="col-md-5">
+    <div class="card h-100 shadow-sm border-0 transition-hover card-diabetes-bg">
+      <div class="card-body text-center p-5">
+        <div class="mb-4 text-info">
+          <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" fill="currentColor" class="bi bi-droplet-fill"
+            viewBox="0 0 16 16">
+            <path
+              d="M8 16a6 6 0 0 0 6-6c0-1.655-1.122-2.904-2.432-4.362C10.254 4.176 8.75 2.503 8 0c0 0-6 5.686-6 10a6 6 0 0 0 6 6ZM6.646 4.646l.708.708c-.29.29-1.128 1.311-1.907 2.87l-.894-.448c.82-1.641 1.717-2.753 2.093-3.13Z" />
+          </svg>
+        </div>
+        <h3 class="card-title fw-bold">Diabetes</h3>
+        <p class="card-text text-muted mb-4">Assess the likelihood of diabetes using key indicators such as glucose
+          levels, insulin, and BMI.</p>
+        <div class="d-grid">
+          <a href="{{ url_for('predict_diabetes') }}" class="btn btn-info text-white btn-lg">Check Diabetes Risk
+            &raquo;</a>
         </div>
       </div>
     </div>

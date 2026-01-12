@@ -15,7 +15,7 @@
   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 
-<body class="bg-light">
+<body class="{% block body_class %}bg-light{% endblock %} d-flex flex-column min-vh-100">
   <nav class="navbar navbar-expand-lg">
     <div class="container">
       <a class="navbar-brand" href="{{ url_for('index') }}">
@@ -28,7 +28,8 @@
       </a>
       <div class="d-flex align-items-center gap-3">
         <a class="nav-link px-2 link-secondary" href="{{ url_for('index') }}" style="font-weight: 600;">Home</a>
-        <a class="btn btn-primary btn-sm px-4" href="{{ url_for('predict_heart') }}">New Prediction</a>
+        <a class="btn btn-primary btn-sm px-4" href="{{ url_for('predict_diabetes') }}">Diabetes Prediction</a>
+        <a class="btn btn-primary btn-sm px-4" href="{{ url_for('predict_heart') }}">Heart Prediction</a>
       </div>
     </div>
   </nav>
@@ -45,6 +46,16 @@
     {% endwith %}
     {% block content %}{% endblock %}
   </div>
+
+  <footer class="footer mt-auto py-3 bg-white border-top">
+    <div class="container text-center">
+      <span class="text-muted">© 2026 MediPredict AI. All rights reserved.</span>
+      <div class="mt-2">
+        <a href="{{ url_for('privacy_policy') }}" class="text-decoration-none text-muted me-3">Privacy Policy</a>
+        <a href="{{ url_for('terms_of_service') }}" class="text-decoration-none text-muted">Terms of Service</a>
+      </div>
+    </div>
+  </footer>
 
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
   <script src="{{ url_for('static', filename='chart.js') }}"></script>

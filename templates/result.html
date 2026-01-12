@@ -1,14 +1,54 @@
 {% extends "base.html" %}
 {% block content %}
-<div class="card shadow-sm">
-  <div class="card-body text-center">
-    <h4 class="card-title mb-3">{{ disease_name }} Result for {{ name }}</h4>
-    <p class="display-6">{{ interpretation }}</p>
-    <p class="text-muted">
-      Predicted class: {{ prediction }} {% if probability is not none %} | Probability: {{
-      "%.2f"|format(probability*100) }}% {% endif %}
-    </p>
-    <a href="{{ url_for('predict_heart') }}" class="btn btn-outline-primary">Predict again</a>
+<div id="pdf-wrapper">
+  <!-- Hidden Header for PDF -->
+  <div id="pdf-header"
+    style="display: none; padding: 20px; text-align: center; margin-bottom: 20px; border-bottom: 2px solid #f0f0f0;">
+    <h1 style="color: #0d6efd; font-weight: bold; font-size: 2.5rem; margin-bottom: 10px;">MediPredict AI</h1>
+    <p style="color: #212529; font-size: 1.1rem; margin: 0;">Advanced artificial intelligence for early disease
+      detection.</p>
+    <p style="color: #6c757d; font-size: 0.9rem; margin-top: 5px;">Powered by Logistic Regression Analysis</p>
+  </div>
+
+  <div class="card shadow-sm" id="result-card">
+    <div class="card-body text-center">
+      <h4 class="card-title mb-3">{{ disease_name }} Result for {{ name }}</h4>
+      <p class="display-6">{{ interpretation }}</p>
+      <p class="text-muted">
+        Predicted class: {{ prediction }} {% if probability is not none %} | Probability: {{
+        "%.2f"|format(probability*100) }}% {% endif %}
+      </p>
+      <div class="d-flex justify-content-center gap-2 mt-4 no-print">
+        <a href="{{ back_url }}" class="btn btn-outline-primary">Predict again</a>
+        <button onclick="downloadPDF()" class="btn btn-primary">Download PDF</button>
+      </div>
+    </div>
   </div>
 </div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+<script>
+  function downloadPDF() {
+    const wrapper = document.getElementById('pdf-wrapper');
+    const header = document.getElementById('pdf-header');
+    const buttons = document.querySelector('.no-print');
+
+    // Prepare for PDF: Show header, hide buttons
+    header.style.display = 'block';
+    buttons.style.display = 'none';
+
+    const opt = {
+      margin: 0.5,
+      filename: '{{ disease_name }}_Result_{{ name }}.pdf',
+      image: { type: 'jpeg', quality: 0.98 },
+      html2canvas: { scale: 2 },
+      jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
+    };
+
+    html2pdf().set(opt).from(wrapper).save().then(() => {
+      // Reset state: Hide header, show buttons
+      header.style.display = 'none';
+      buttons.style.display = 'flex';
+    });
+  }
+</script>
 {% endblock %}

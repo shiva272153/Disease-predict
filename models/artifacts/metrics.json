@@ -2,5 +2,9 @@
   "heart": {
     "best": "LogisticRegression",
     "models": {}
+  },
+  "diabetes": {
+    "best": "LogisticRegression",
+    "models": {}
   }
 }
