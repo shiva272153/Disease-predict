@@ -16,15 +16,11 @@
 </head>
 
 <body class="{% block body_class %}bg-light{% endblock %} d-flex flex-column min-vh-100">
-  <nav class="navbar navbar-expand-lg">
+  <nav class="navbar navbar-expand-lg py-1">
     <div class="container">
-      <a class="navbar-brand" href="{{ url_for('index') }}">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
-          class="bi bi-heart-pulse-fill me-2" viewBox="0 0 16 16">
-          <path fill-rule="evenodd"
-            d="M1.475 9C2.702 10.84 4.779 12.871 8 15c3.221-2.129 5.298-4.16 6.525-6H1.475ZM8 1a2.5 2.5 0 0 0-2.5 2.5c0 .088.006.175.019.261C3.395 3.522 2 5.093 2 7h12c0-1.907-1.395-3.478-3.519-3.239A2.5 2.5 0 0 0 8 1Zm-1.875 3a.5.5 0 1 1 1 0 .5.5 0 0 1-1 0Zm3 0a.5.5 0 1 1 1 0 .5.5 0 0 1-1 0Z" />
-        </svg>
-        MediPredict
+      <a class="navbar-brand py-0" href="{{ url_for('index') }}">
+        <img src="{{ url_for('static', filename='logo.png') }}" alt="MediPredict AI"
+          style="height: 50px; width: auto; object-fit: contain;">
       </a>
       <div class="d-flex align-items-center gap-3">
         <a class="nav-link px-2 link-secondary" href="{{ url_for('index') }}" style="font-weight: 600;">Home</a>
