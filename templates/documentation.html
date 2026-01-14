@@ -1,0 +1,373 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-lg-10">
+        <div class="text-center mb-5">
+            <h1 class="display-5 fw-bold text-primary mb-3">Prediction Guide</h1>
+            <p class="lead text-muted">A complete reference for understanding the medical terms and values used in our
+                prediction models.</p>
+        </div>
+
+        <ul class="nav nav-pills nav-fill mb-4" id="pills-tab" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link active fw-semibold" id="pills-heart-tab" data-bs-toggle="pill"
+                    data-bs-target="#pills-heart" type="button" role="tab">
+                    <i class="bi bi-heart-pulse me-2"></i>Heart Disease Model
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link fw-semibold" id="pills-diabetes-tab" data-bs-toggle="pill"
+                    data-bs-target="#pills-diabetes" type="button" role="tab">
+                    <i class="bi bi-droplet me-2"></i>Diabetes Model
+                </button>
+            </li>
+        </ul>
+
+        <div class="tab-content" id="pills-tabContent">
+            <!-- Heart Disease Tab -->
+            <div class="tab-pane fade show active" id="pills-heart" role="tabpanel">
+                <div class="card border-0 shadow-sm rounded-4">
+                    <div class="card-body p-4">
+                        <h4 class="mb-4">Heart Disease Input Parameters</h4>
+                        <div class="accordion accordion-flush" id="heartAccordion">
+
+                            <div class="accordion-item">
+                                <h2 class="accordion-header">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#h1">
+                                        <strong>Age & Sex</strong>
+                                    </button>
+                                </h2>
+                                <div id="h1" class="accordion-collapse collapse" data-bs-parent="#heartAccordion">
+                                    <div class="accordion-body">
+                                        <ul>
+                                            <li><strong>Age:</strong> Age of the patient in years.</li>
+                                            <li><strong>Sex:</strong> 1 = Male, 0 = Female.</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="accordion-item">
+                                <h2 class="accordion-header">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#h2">
+                                        <strong>Chest Pain Type (cp)</strong>
+                                    </button>
+                                </h2>
+                                <div id="h2" class="accordion-collapse collapse" data-bs-parent="#heartAccordion">
+                                    <div class="accordion-body">
+                                        <p>Chest pain type (4 values):</p>
+                                        <ul>
+                                            <li><strong>0:</strong> Typical angina (chest pain related to heart).</li>
+                                            <li><strong>1:</strong> Atypical angina (chest pain not related to heart).
+                                            </li>
+                                            <li><strong>2:</strong> Non-anginal pain (non-heart related pain).</li>
+                                            <li><strong>3:</strong> Asymptomatic (no pain).</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="accordion-item">
+                                <h2 class="accordion-header">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#h3">
+                                        <strong>Resting Blood Pressure (trestbps)</strong>
+                                    </button>
+                                </h2>
+                                <div id="h3" class="accordion-collapse collapse" data-bs-parent="#heartAccordion">
+                                    <div class="accordion-body">
+                                        <p>Resting blood pressure (in mm Hg on admission to the hospital).</p>
+                                        <p class="text-muted small">Normal range is usually around 120/80.</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="accordion-item">
+                                <h2 class="accordion-header">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#h4">
+                                        <strong>Cholesterol (chol)</strong>
+                                    </button>
+                                </h2>
+                                <div id="h4" class="accordion-collapse collapse" data-bs-parent="#heartAccordion">
+                                    <div class="accordion-body">
+                                        <p>Serum cholestoral in mg/dl.</p>
+                                        <p class="text-muted small">Healthy is generally less than 200 mg/dL.</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="accordion-item">
+                                <h2 class="accordion-header">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#h5">
+                                        <strong>Fasting Blood Sugar (fbs)</strong>
+                                    </button>
+                                </h2>
+                                <div id="h5" class="accordion-collapse collapse" data-bs-parent="#heartAccordion">
+                                    <div class="accordion-body">
+                                        <p>Fasting blood sugar > 120 mg/dl.</p>
+                                        <ul>
+                                            <li><strong>1:</strong> True (High blood sugar)</li>
+                                            <li><strong>0:</strong> False (Normal blood sugar)</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="accordion-item">
+                                <h2 class="accordion-header">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#h6">
+                                        <strong>Resting ECG (restecg)</strong>
+                                    </button>
+                                </h2>
+                                <div id="h6" class="accordion-collapse collapse" data-bs-parent="#heartAccordion">
+                                    <div class="accordion-body">
+                                        <p>Resting electrocardiographic results:</p>
+                                        <ul>
+                                            <li><strong>0:</strong> Normal.</li>
+                                            <li><strong>1:</strong> Having ST-T wave abnormality (T wave inversions
+                                                and/or ST elevation or depression of > 0.05 mV).</li>
+                                            <li><strong>2:</strong> Showing probable or definite left ventricular
+                                                hypertrophy by Estes' criteria.</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="accordion-item">
+                                <h2 class="accordion-header">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#h7">
+                                        <strong>Max Heart Rate (thalach)</strong>
+                                    </button>
+                                </h2>
+                                <div id="h7" class="accordion-collapse collapse" data-bs-parent="#heartAccordion">
+                                    <div class="accordion-body">
+                                        <p>Maximum heart rate achieved during the test.</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="accordion-item">
+                                <h2 class="accordion-header">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#h8">
+                                        <strong>Exercise Induced Angina (exang)</strong>
+                                    </button>
+                                </h2>
+                                <div id="h8" class="accordion-collapse collapse" data-bs-parent="#heartAccordion">
+                                    <div class="accordion-body">
+                                        <p>Exercise induced angina.</p>
+                                        <ul>
+                                            <li><strong>1:</strong> Yes</li>
+                                            <li><strong>0:</strong> No</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="accordion-item">
+                                <h2 class="accordion-header">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#h9">
+                                        <strong>ST Depression (oldpeak)</strong>
+                                    </button>
+                                </h2>
+                                <div id="h9" class="accordion-collapse collapse" data-bs-parent="#heartAccordion">
+                                    <div class="accordion-body">
+                                        <p>ST depression induced by exercise relative to rest. Typical values range from
+                                            0 to 6.2.</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="accordion-item">
+                                <h2 class="accordion-header">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#h10">
+                                        <strong>Slope of Peak Exercise ST (slope)</strong>
+                                    </button>
+                                </h2>
+                                <div id="h10" class="accordion-collapse collapse" data-bs-parent="#heartAccordion">
+                                    <div class="accordion-body">
+                                        <p>The slope of the peak exercise ST segment:</p>
+                                        <ul>
+                                            <li><strong>0:</strong> Upsloping (better heart health generally).</li>
+                                            <li><strong>1:</strong> Flat (neutral).</li>
+                                            <li><strong>2:</strong> Downsloping (unhealthy heart sign).</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="accordion-item">
+                                <h2 class="accordion-header">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#h11">
+                                        <strong>Major Vessels (ca)</strong>
+                                    </button>
+                                </h2>
+                                <div id="h11" class="accordion-collapse collapse" data-bs-parent="#heartAccordion">
+                                    <div class="accordion-body">
+                                        <p>Number of major vessels (0-3) colored by flourosopy.</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="accordion-item">
+                                <h2 class="accordion-header">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#h12">
+                                        <strong>Thalassemia (thal)</strong>
+                                    </button>
+                                </h2>
+                                <div id="h12" class="accordion-collapse collapse" data-bs-parent="#heartAccordion">
+                                    <div class="accordion-body">
+                                        <p>A blood disorder involving lower-than-normal amounts of an oxygen-carrying
+                                            protein.</p>
+                                        <ul>
+                                            <li><strong>0:</strong> Normal.</li>
+                                            <li><strong>1:</strong> Fixed defect (no blood flow in some part of the
+                                                heart).</li>
+                                            <li><strong>2:</strong> Reversable defect (a blood flow is observed but it
+                                                is not normal).</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Diabetes Tab -->
+            <div class="tab-pane fade" id="pills-diabetes" role="tabpanel">
+                <div class="card border-0 shadow-sm rounded-4">
+                    <div class="card-body p-4">
+                        <h4 class="mb-4">Diabetes Input Parameters</h4>
+                        <div class="accordion accordion-flush" id="diabetesAccordion">
+
+                            <div class="accordion-item">
+                                <h2 class="accordion-header">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#d1">
+                                        <strong>Pregnancies</strong>
+                                    </button>
+                                </h2>
+                                <div id="d1" class="accordion-collapse collapse" data-bs-parent="#diabetesAccordion">
+                                    <div class="accordion-body">
+                                        <p>Number of times pregnant.</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="accordion-item">
+                                <h2 class="accordion-header">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#d2">
+                                        <strong>Glucose</strong>
+                                    </button>
+                                </h2>
+                                <div id="d2" class="accordion-collapse collapse" data-bs-parent="#diabetesAccordion">
+                                    <div class="accordion-body">
+                                        <p>Plasma glucose concentration a 2 hours in an oral glucose tolerance test.</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="accordion-item">
+                                <h2 class="accordion-header">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#d3">
+                                        <strong>Blood Pressure</strong>
+                                    </button>
+                                </h2>
+                                <div id="d3" class="accordion-collapse collapse" data-bs-parent="#diabetesAccordion">
+                                    <div class="accordion-body">
+                                        <p>Diastolic blood pressure (mm Hg).</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="accordion-item">
+                                <h2 class="accordion-header">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#d4">
+                                        <strong>Skin Thickness</strong>
+                                    </button>
+                                </h2>
+                                <div id="d4" class="accordion-collapse collapse" data-bs-parent="#diabetesAccordion">
+                                    <div class="accordion-body">
+                                        <p>Triceps skin fold thickness (mm).</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="accordion-item">
+                                <h2 class="accordion-header">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#d5">
+                                        <strong>Insulin</strong>
+                                    </button>
+                                </h2>
+                                <div id="d5" class="accordion-collapse collapse" data-bs-parent="#diabetesAccordion">
+                                    <div class="accordion-body">
+                                        <p>2-Hour serum insulin (mu U/ml).</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="accordion-item">
+                                <h2 class="accordion-header">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#d6">
+                                        <strong>BMI</strong>
+                                    </button>
+                                </h2>
+                                <div id="d6" class="accordion-collapse collapse" data-bs-parent="#diabetesAccordion">
+                                    <div class="accordion-body">
+                                        <p>Body mass index (weight in kg / (height in m)^2).</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="accordion-item">
+                                <h2 class="accordion-header">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#d7">
+                                        <strong>Diabetes Pedigree Function</strong>
+                                    </button>
+                                </h2>
+                                <div id="d7" class="accordion-collapse collapse" data-bs-parent="#diabetesAccordion">
+                                    <div class="accordion-body">
+                                        <p>A function which scores likelihood of diabetes based on family history.</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="accordion-item">
+                                <h2 class="accordion-header">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#d8">
+                                        <strong>Age</strong>
+                                    </button>
+                                </h2>
+                                <div id="d8" class="accordion-collapse collapse" data-bs-parent="#diabetesAccordion">
+                                    <div class="accordion-body">
+                                        <p>Age in years.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

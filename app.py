@@ -174,6 +174,10 @@ def predict_diabetes():
 
     return render_template("predict_diabetes.html")
 
+@app.route("/documentation")
+def documentation():
+    return render_template("documentation.html")
+
 @app.route("/privacy-policy")
 def privacy_policy():
     return render_template("privacy_policy.html")

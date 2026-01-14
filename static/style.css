@@ -34,12 +34,12 @@ body {
     letter-spacing: -0.5px;
 }
 
-.nav-link {
+.navbar .nav-link {
     color: var(--dark-text) !important;
     font-weight: 500;
 }
 
-.nav-link:hover {
+.navbar .nav-link:hover {
     color: var(--primary-color) !important;
 }
 
