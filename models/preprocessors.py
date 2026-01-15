@@ -11,9 +11,9 @@ class PreprocessResult:
     feature_names: list
 
 def preprocess_heart(df: pd.DataFrame) -> PreprocessResult:
-    # Expect 'condition' as label
-    y = df['condition']
-    X = df.drop(columns=['condition'])
+    # Expect 'target' as label
+    y = df['target']
+    X = df.drop(columns=['target'])
     scaler = StandardScaler()
     X_scaled = scaler.fit_transform(X)
     return PreprocessResult(

@@ -18,25 +18,33 @@ def train_for_task(task_name: str, train_df: pd.DataFrame, test_df: pd.DataFrame
     prep_train = preprocess_fn(train_df)
     prep_test = preprocess_fn(test_df)
     
-    # We now strictly use the single model defined in registry
-    models = get_model_candidates()
-    name, model = list(models.items())[0]
-    
-    print(f"Training {name}...")
-    
-    # Train on training set
-    model.fit(prep_train.X, prep_train.y)
-    
-    # Evaluate on test set
-    score = model.score(prep_test.X, prep_test.y)
-    print(f"Validation Accuracy: {score:.3f}")
+    # Train and evaluate all models
+    models = get_model_candidates(task_name)
+    best_score = -1.0
+    best_name = None
+    best_model = None
+    task_metrics = {}
 
-    # Persist model and scaler (from training set)
-    dump(model, os.path.join(ARTIFACT_DIR, f"{task_name}_model.pkl"))
+    for name, model in models.items():
+        print(f"Training {name}...")
+        model.fit(prep_train.X, prep_train.y)
+        score = model.score(prep_test.X, prep_test.y)
+        print(f"  {name} Accuracy: {score:.3f}")
+        task_metrics[name] = score
+        
+        if score > best_score:
+            best_score = score
+            best_name = name
+            best_model = model
+
+    print(f"Best model for {task_name}: {best_name} with accuracy {best_score:.3f}")
+
+    # Persist best model and scaler
+    dump(best_model, os.path.join(ARTIFACT_DIR, f"{task_name}_model.pkl"))
     dump(prep_train.scaler, os.path.join(ARTIFACT_DIR, f"{task_name}_scaler.pkl"))
-    print(f"Saved {name} for {task_name}")
+    print(f"Saved {best_name} for {task_name}")
 
-    return {}, name
+    return task_metrics, best_name
 
 def main():
     metrics_all = {}

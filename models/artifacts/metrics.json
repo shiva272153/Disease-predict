@@ -1,10 +1,14 @@
 {
   "heart": {
-    "best": "LogisticRegression",
-    "models": {}
+    "best": "RandomForest",
+    "models": {
+      "RandomForest": 0.9853658536585366
+    }
   },
   "diabetes": {
     "best": "LogisticRegression",
-    "models": {}
+    "models": {
+      "LogisticRegression": 0.7857142857142857
+    }
   }
 }
