@@ -50,13 +50,16 @@ def predict_heart():
                 return redirect(url_for('index'))
 
             X_scaled = scaler.transform(X)
+            # Convert back to DataFrame to preserve feature names and avoid warning
+            X_scaled_df = pd.DataFrame(X_scaled, columns=feature_names)
+            
             proba = None
             try:
-                proba = float(model.predict_proba(X_scaled)[0, 1])
+                proba = float(model.predict_proba(X_scaled_df)[0, 1])
             except Exception:
                 # fallback to decision function or predicted label
                 proba = None
-            pred = int(model.predict(X_scaled)[0])
+            pred = int(model.predict(X_scaled_df)[0])
 
             # Save prediction to CSV
             try:
@@ -116,15 +119,18 @@ def predict_diabetes():
                 return redirect(url_for('index'))
 
             X_scaled = scaler.transform(X)
+            # Convert back to DataFrame to preserve feature names for the model
+            X_scaled_df = pd.DataFrame(X_scaled, columns=feature_names)
+
             proba = None
             try:
                 # Some models like linear svc might not have predict_proba by default unless calibrated or specific param
                 # LogReg has it by default
-                proba = float(model.predict_proba(X_scaled)[0, 1])
+                proba = float(model.predict_proba(X_scaled_df)[0, 1])
             except Exception:
                 proba = None
             
-            pred = int(model.predict(X_scaled)[0])
+            pred = int(model.predict(X_scaled_df)[0])
 
             # Save prediction to CSV
             try:
