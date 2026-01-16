@@ -18,8 +18,9 @@
               <input type="text" class="form-control" name="patient_name" placeholder="Enter patient name" required>
             </div>
             <div class="col-md-6">
-              <label class="form-label">Age</label>
-              <input type="number" step="1" min="1" class="form-control" name="age" placeholder="e.g. 45" required>
+              <label class="form-label">Age (1-120)</label>
+              <input type="number" step="1" min="1" max="120" class="form-control" name="age" placeholder="e.g. 45"
+                required>
             </div>
             <div class="col-md-6">
               <label class="form-label">Biological Sex</label>
@@ -58,12 +59,14 @@
           <h5 class="section-title">Vitals & Labs</h5>
           <div class="row g-3">
             <div class="col-md-4">
-              <label class="form-label">Resting BP (mm Hg)</label>
-              <input type="number" step="0.1" class="form-control" name="trestbps" placeholder="e.g. 120" required>
+              <label class="form-label">Resting BP (50-250 mm Hg)</label>
+              <input type="number" step="0.1" min="50" max="250" class="form-control" name="trestbps"
+                placeholder="e.g. 120" required>
             </div>
             <div class="col-md-4">
-              <label class="form-label">Cholesterol (mg/dl)</label>
-              <input type="number" step="0.1" class="form-control" name="chol" placeholder="e.g. 200" required>
+              <label class="form-label">Cholesterol (100-600 mg/dl)</label>
+              <input type="number" step="0.1" min="100" max="600" class="form-control" name="chol"
+                placeholder="e.g. 200" required>
             </div>
             <div class="col-md-4">
               <label class="form-label">Fasting Blood Sugar > 120?</label>
@@ -83,8 +86,9 @@
               </select>
             </div>
             <div class="col-md-6">
-              <label class="form-label">Max Heart Rate (Thalach)</label>
-              <input type="number" step="1" class="form-control" name="thalach" placeholder="e.g. 150" required>
+              <label class="form-label">Max Heart Rate (30-220)</label>
+              <input type="number" step="1" min="30" max="220" class="form-control" name="thalach"
+                placeholder="e.g. 150" required>
             </div>
           </div>
 
@@ -92,8 +96,9 @@
           <h5 class="section-title">Advanced Cardiac Metrics</h5>
           <div class="row g-3">
             <div class="col-md-4">
-              <label class="form-label">Oldpeak (ST Depression)</label>
-              <input type="number" step="0.1" class="form-control" name="oldpeak" placeholder="e.g. 1.0" required>
+              <label class="form-label">Oldpeak (0-10)</label>
+              <input type="number" step="0.1" min="0" max="10" class="form-control" name="oldpeak"
+                placeholder="e.g. 1.0" required>
             </div>
             <div class="col-md-4">
               <label class="form-label">ST Slope</label>

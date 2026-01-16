@@ -37,11 +37,78 @@ def predict_heart():
         try:
             patient_name = request.form.get("patient_name", "Patient")
             values = []
-            for name in feature_names:
-                v = request.form.get(name)
-                if v is None or v == "":
-                    raise ValueError(f"Missing value for {name}")
-                values.append(float(v))
+            
+            # Validation helper
+            def validate_range(val, name, min_v, max_v):
+                if not (min_v <= val <= max_v):
+                    raise ValueError(f"{name} must be between {min_v} and {max_v}")
+
+            # Extract and validate
+            # Age
+            age = float(request.form.get("age"))
+            validate_range(age, "Age", 1, 120)
+            values.append(age)
+
+            # Sex (0 or 1)
+            sex = float(request.form.get("sex"))
+            if sex not in [0, 1]: raise ValueError("Invalid Sex value")
+            values.append(sex)
+
+            # CP (0-3)
+            cp = float(request.form.get("cp"))
+            if cp not in [0, 1, 2, 3]: raise ValueError("Invalid Chest Pain Type")
+            values.append(cp)
+
+            # Trestbps (Resting BP)
+            trestbps = float(request.form.get("trestbps"))
+            validate_range(trestbps, "Resting BP", 50, 250)
+            values.append(trestbps)
+
+            # Chol
+            chol = float(request.form.get("chol"))
+            validate_range(chol, "Cholesterol", 100, 600)
+            values.append(chol)
+
+            # FBS (0 or 1)
+            fbs = float(request.form.get("fbs"))
+            if fbs not in [0, 1]: raise ValueError("Invalid Fasting Blood Sugar value")
+            values.append(fbs)
+
+            # RestECG (0-2)
+            restecg = float(request.form.get("restecg"))
+            if restecg not in [0, 1, 2]: raise ValueError("Invalid Resting ECG")
+            values.append(restecg)
+
+            # Thalach (Max Heart Rate)
+            thalach = float(request.form.get("thalach"))
+            validate_range(thalach, "Max Heart Rate", 30, 220)
+            values.append(thalach)
+
+            # Exang (0 or 1)
+            exang = float(request.form.get("exang"))
+            if exang not in [0, 1]: raise ValueError("Invalid Exercise Induced Angina value")
+            values.append(exang)
+
+            # Oldpeak
+            oldpeak = float(request.form.get("oldpeak"))
+            validate_range(oldpeak, "Oldpeak", 0, 10)
+            values.append(oldpeak)
+
+            # Slope (0-2)
+            slope = float(request.form.get("slope"))
+            if slope not in [0, 1, 2]: raise ValueError("Invalid ST Slope")
+            values.append(slope)
+
+            # CA (0-3)
+            ca = float(request.form.get("ca"))
+            if ca not in [0, 1, 2, 3]: raise ValueError("Invalid Major Vessels count")
+            values.append(ca)
+
+            # Thal (1-3)
+            thal = float(request.form.get("thal"))
+            if thal not in [1, 2, 3]: raise ValueError("Invalid Thalassemia value")
+            values.append(thal)
+
             X = np.array(values).reshape(1, -1)
 
             model, scaler = load_model_scaler('heart')
@@ -87,6 +154,9 @@ def predict_heart():
                 interpretation="High risk" if pred == 1 else "Low risk",
                 back_url=url_for('predict_heart')
             )
+        except ValueError as ve:
+             flash(f"Input Error: {ve}", "danger")
+             return redirect(url_for('predict_heart'))
         except Exception as e:
             flash(f"Error: {e}", "danger")
             return redirect(url_for('predict_heart'))
@@ -104,12 +174,50 @@ def predict_diabetes():
         try:
             patient_name = request.form.get("patient_name", "Patient")
             values = []
-            for name in feature_names:
-                v = request.form.get(name)
-                # Handle potential missing values safely if needed, or assume required
-                if v is None or v == "":
-                    raise ValueError(f"Missing value for {name}")
-                values.append(float(v))
+            
+            def validate_range(val, name, min_v, max_v):
+                if not (min_v <= val <= max_v):
+                    raise ValueError(f"{name} must be between {min_v} and {max_v}")
+
+            # Pregnancies
+            preg = float(request.form.get("Pregnancies"))
+            validate_range(preg, "Pregnancies", 0, 20)
+            values.append(preg)
+
+            # Glucose
+            gluc = float(request.form.get("Glucose"))
+            validate_range(gluc, "Glucose", 50, 500)
+            values.append(gluc)
+
+            # BloodPressure
+            bp = float(request.form.get("BloodPressure"))
+            validate_range(bp, "BloodPressure", 40, 250)
+            values.append(bp)
+
+            # SkinThickness
+            st = float(request.form.get("SkinThickness"))
+            validate_range(st, "SkinThickness", 0, 100)
+            values.append(st)
+
+            # Insulin
+            ins = float(request.form.get("Insulin"))
+            validate_range(ins, "Insulin", 0, 900)
+            values.append(ins)
+
+            # BMI
+            bmi = float(request.form.get("BMI"))
+            validate_range(bmi, "BMI", 10, 70)
+            values.append(bmi)
+
+            # DPF
+            dpf = float(request.form.get("DiabetesPedigreeFunction"))
+            validate_range(dpf, "Diabetes Pedigree Function", 0.0, 3.0)
+            values.append(dpf)
+
+            # Age
+            age = float(request.form.get("Age"))
+            validate_range(age, "Age", 1, 120)
+            values.append(age)
             
             X = np.array(values).reshape(1, -1)
 
@@ -134,23 +242,6 @@ def predict_diabetes():
 
             # Save prediction to CSV
             try:
-                log_file = os.path.join(BASE_DIR, 'data', 'logged_predictions.csv')
-                file_exists = os.path.isfile(log_file)
-                
-                with open(log_file, 'a', newline='') as f:
-                    writer = csv.writer(f)
-                    if not file_exists:
-                        header = ['timestamp', 'type'] + feature_names + ['prediction', 'probability']
-                        writer.writerow(header)
-                    
-                    # Note: We are adding 'type' column to distinguish, but previously we didn't have it.
-                    # Adapting to just append or maybe we should have separate log files?
-                    # For simplicity, let's just append to the same file but we might have schema mismatch.
-                    # User requested explanation earlier implies "logged_predictions.csv" is general.
-                    # Let's write to "logged_predictions_diabetes.csv" to avoid schema conflict or just accept it.
-                    # I will use a separate file for safety: logged_predictions_diabetes.csv
-                    pass 
-                
                 # Actually, let's just log to a specific diabetes log file
                 diabetes_log = os.path.join(BASE_DIR, 'data', 'logged_predictions_diabetes.csv')
                 d_exists = os.path.isfile(diabetes_log)
@@ -174,6 +265,9 @@ def predict_diabetes():
                 interpretation="Positive" if pred == 1 else "Negative",
                 back_url=url_for('predict_diabetes')
             )
+        except ValueError as ve:
+            flash(f"Input Error: {ve}", "danger")
+            return redirect(url_for('predict_diabetes'))
         except Exception as e:
             flash(f"Error: {e}", "danger")
             return redirect(url_for('predict_diabetes'))
